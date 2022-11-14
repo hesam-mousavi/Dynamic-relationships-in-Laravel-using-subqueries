@@ -143,6 +143,33 @@ $users = User::with('lastLogin')->get();
 
 ## معرفی subqueries:
 
+راه دیگری هم برای حل این مشکل وجود دارد و آن هم با پرس و جوی فرعی (subqueries) است. پرسش‌های فرعی به ما امکان می‌دهند ستون‌های اضافی (ویژگی‌ها) را درست در database query داده خود انتخاب کنیم (users query در مثال ما). بیایید ببینیم چگونه می توانیم این کار را انجام دهیم.
+
+```php
+$users = User::query()
+    ->addSelect(['last_login_at' => Login::select('created_at')
+        ->whereColumn('user_id', 'users.id')
+        ->latest()
+        ->take(1)
+    ])
+    ->withCasts(['last_login_at' => 'datetime'])
+    ->get();
+
+@foreach ($users as $user)
+    <tr>
+        <td>{{ $user->name }}</td>
+        <td>{{ $user->email }}</td>
+        <td>
+            @if ($user->last_login_at)
+                {{ $user->last_login_at->format('M j, Y \a\t g:i a') }}
+            @else
+                Never
+            @endif
+        </td>
+    </tr>
+@endforeach
+```
+
 ---
 [^1]: ([Jonathan
 Reinink](https://reinink.ca/articles/dynamic-relationships-in-laravel-using-subqueries))
