@@ -24,6 +24,6 @@
 | Jonathan Reinink | jonathan@reinink.ca | Jun 2, 2018 at 5:30am
 | Adam Wathan | adam.wathan@gmail.com | Nov 20, 2018 at 7:49pm
 
-
+---
 [^1]: ([Jonathan
-Reinink](https://reinink.ca/articles/dynamic-relationships-in-laravel-using-subqueries#the-challenge))
+Reinink](https://reinink.ca/articles/dynamic-relationships-in-laravel-using-subqueries))
